@@ -1,0 +1,32 @@
+name: ♟️ Generate Chessboard
+
+on:
+  workflow_dispatch:      # Manual trigger
+  schedule:
+    - cron: "0 0 * * *"   # Runs every day at midnight UTC
+
+permissions:
+  contents: write         # ✅ allows pushing to main
+
+jobs:
+  chess:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main       # ensure we’re working on main
+
+      - name: Generate Chessboard SVG
+        uses: Platane/chessboard@v3
+        with:
+          github_user_name: a-r007      # your username
+          outputs: github-chess.svg     # file will be created in repo root
+
+      - name: Commit & Push to main
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: github-actions[bot]
+          author_email: github-actions[bot]@users.noreply.github.com
+          message: "♟️ update chess gambit board [ci skip]"
+          add: "github-chess.svg"
