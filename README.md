@@ -53,7 +53,8 @@
 ### 🐍 Contribution Snake
 <div align="center">
   <!-- Replace USERNAME below after running the GitHub Action -->
-  <img src="https://raw.githubusercontent.com/a-r007/a-r007/output/github-contribution-grid-snake.svg" alt="snake animation"/>
+  <img src="https://raw.githubusercontent.com/a-r007/a-r007/output/dist/github-contribution-grid-snake.svg" alt="snake animation" />
+
 </div>
 
 ---
