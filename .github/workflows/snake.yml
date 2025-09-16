@@ -1,35 +1,37 @@
 name: Generate Snake
-# run daily + manual trigger
+
 on:
+  # Allows manual run from the Actions tab
   workflow_dispatch:
+  # Runs every day at 00:00 UTC
   schedule:
     - cron: "0 0 * * *"
+
+# ✅ Required so the workflow can push to the output branch
+permissions:
+  contents: write
 
 jobs:
   snake:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      # Checkout the repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Generate snake SVG
+      # Generate the snake SVG
+      - name: Generate Snake SVG
         uses: Platane/snk@v3
         with:
-          github_user_name: a-r007    # <- REPLACE if your username differs
+          # ⚡ Replace with your GitHub username if different
+          github_user_name: a-r007
           outputs: dist/github-contribution-grid-snake.svg
 
-      - name: Create output branch and commit snake
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b output || git checkout output
-          mkdir -p dist
-          # Platane/snk already wrote to dist/; ensure file exists
-          if [ -f dist/github-contribution-grid-snake.svg ]; then
-            git add dist/github-contribution-grid-snake.svg
-            git commit -m "chore: update snake [ci skip]" || echo "no changes"
-            git push -u origin output
-          else
-            echo "ERROR: snake missing; Platane/snk may have failed."
-            exit 1
-          fi
+      # Commit and push the snake SVG to the `output` branch
+      - name: Push Snake to Output Branch
+        uses: EndBug/add-and-commit@v9
+        with:
+          branch: output
+          message: "chore: update contribution snake [ci skip]"
+          add: "dist/github-contribution-grid-snake.svg"
