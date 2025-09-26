@@ -51,7 +51,7 @@
 ---
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/a-r007/a-r007/main/github-chess.svg"
+  <img src="dist/github-contribution-grid-snake.svg"
        alt="GitHub Contribution Chess Gambit"
        width="800"/>
 </p>
